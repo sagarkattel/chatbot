@@ -1,0 +1,29 @@
+# Virtual environments
+venv/
+venv_wsl/
+.venv/
+env/
+ENV/
+
+# Python caching & bytecode
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Local datasets (auto-downloaded by the chatbot)
+data/*.csv
+data/*.xlsx
+data/*.json
+
+# User-specific & IDE configs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
