@@ -3,12 +3,12 @@ import streamlit as st
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
-from chatbot import MedicalChatbot
+from chatbot import StudyAusChatbot
 
 # ─── Page Config ─────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Medibot AI · Medical Expert Chatbot",
-    page_icon="🩺",
+    page_title="StudyAus AI · Australian Student Guide",
+    page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -431,18 +431,15 @@ div[data-testid="stExpander"] > div > div {
 
 # ─── Load Resources ────────────────────────────────────────────────────────────
 @st.cache_resource
-def load_medical_chatbot():
-    bot = MedicalChatbot()
+def load_studyaus_chatbot():
+    bot = StudyAusChatbot()
     bot.load_model()
     return bot
 
 
-
-
-
 # ─── Load Bot ─────────────────────────────────────────────────────────────────
 try:
-    chatbot = load_medical_chatbot()
+    chatbot = load_studyaus_chatbot()
     model_loaded = True
 except Exception as e:
     model_loaded = False
@@ -453,10 +450,10 @@ with st.sidebar:
     # Logo
     st.markdown("""
     <div class="sidebar-logo">
-        <div class="sidebar-logo-icon">🩺</div>
+        <div class="sidebar-logo-icon">🎓</div>
         <div class="sidebar-logo-text">
-            <h2>Medibot AI</h2>
-            <p>MEDICAL EXPERT ASSISTANT</p>
+            <h2>StudyAus AI</h2>
+            <p>AUSTRALIAN STUDENT GUIDE</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -465,16 +462,16 @@ with st.sidebar:
     if model_loaded:
         st.markdown("""
         <div class="status-badge status-online">
-            <div class="pulse-dot"></div> Engine Online
+            <div class="pulse-dot"></div> Guide Online
         </div>
         """, unsafe_allow_html=True)
     else:
         st.markdown("""
         <div class="status-badge status-offline">
-            <div class="pulse-dot-off"></div> Engine Offline
+            <div class="pulse-dot-off"></div> Guide Offline
         </div>
         """, unsafe_allow_html=True)
-        st.error("Model failed to load. Run the training pipeline first.")
+        st.error("Model failed to load.")
         if '_load_error' in dir():
             with st.expander("Error details"):
                 st.exception(_load_error)
@@ -484,20 +481,20 @@ with st.sidebar:
     st.markdown('<div class="section-label" style="margin-top:1.2rem;">🔍 Try Asking</div>', unsafe_allow_html=True)
 
     sample_questions = [
-        "What are the symptoms of flu?",
-        "What is the treatment for hypertension?",
-        "What causes diabetes?",
-        "How is breast cancer treated?",
-        "What causes high blood pressure?",
-        "What are the signs of heart disease?",
+        "What is a Subclass 500 Student Visa?",
+        "How many hours can I work on a student visa?",
+        "What is the 80% attendance rule?",
+        "What are the Group of Eight (Go8) universities?",
+        "What is plagiarism and the consequences?",
+        "What is the cost of living in Australia?",
     ]
 
     # ── Chat History ─────────────────────────────────────────────────────────
     if "messages" not in st.session_state:
         welcome = (
-            "👋 Hello! I am **Medibot**, your medical expert AI assistant.\n\n"
-            "I can answer questions about **symptoms**, **treatments**, **diseases**, and **medications**. "
-            "Feel free to ask anything, or pick a sample question from the sidebar to get started!"
+            "👋 G'day! I am **StudyAus AI**, your guide to living and studying in Australia.\n\n"
+            "Ask me anything about **visas**, **university selection**, **academic rules**, **assignments**, "
+            "**attendance requirements**, or **cultural integration**!"
         )
         st.session_state.messages = [
             {"role": "assistant", "short": welcome, "full": welcome}
@@ -506,10 +503,10 @@ with st.sidebar:
     def process_message(prompt):
         st.session_state.messages.append({"role": "user", "short": prompt, "full": prompt})
         if model_loaded:
-            with st.spinner("Consulting medical knowledge base…"):
+            with st.spinner("Retrieving guide details…"):
                 short, full = chatbot.get_response(prompt)
         else:
-            short = full = "⚠️ Medibot is currently offline. Please run the training pipeline first."
+            short = full = "⚠️ StudyAus AI is currently offline. Please check that the dataset exists."
         st.session_state.messages.append({"role": "assistant", "short": short, "full": full})
 
     for sq in sample_questions:
@@ -521,9 +518,8 @@ with st.sidebar:
     st.markdown('<div class="section-label" style="margin-top:1rem;">ℹ️ About</div>', unsafe_allow_html=True)
     st.markdown("""
     <p style="font-size:0.76rem; color:#2d4a65; line-height:1.55;">
-        Medibot uses a <strong style="color:#3a5c80;">TF-IDF Hybrid Retrieval</strong> engine
-        trained on the public <strong style="color:#3a5c80;">MedQuAD</strong> dataset with
-        NLP-based query normalisation and smart sentence extraction.
+        StudyAus AI uses a <strong style="color:#3a5c80;">TF-IDF Hybrid Retrieval</strong> engine
+        trained on a curated Australian university regulations, visa rules, and cultural integration dataset.
     </p>
     """, unsafe_allow_html=True)
 
@@ -534,11 +530,11 @@ with st.sidebar:
 st.markdown("""
 <div class="main-header">
     <div>
-        <h1 class="main-title">Medibot AI 🩺</h1>
+        <h1 class="main-title">StudyAus AI 🎓</h1>
         <div class="main-subtitle">
-            Expert Medical Chatbot &nbsp;
+            Australian Visa & University Life Assistant &nbsp;
             <span class="tag tag-teal">TF-IDF Retrieval</span>&nbsp;
-            <span class="tag">MedQuAD Dataset</span>
+            <span class="tag">Student Guide</span>
         </div>
     </div>
 </div>
@@ -549,19 +545,19 @@ if len(st.session_state.messages) <= 1:
     st.markdown("""
     <div class="info-grid">
         <div class="info-card">
-            <span class="info-icon">🧬</span>
-            <div class="info-title">Disease Info</div>
-            <div class="info-desc">Detailed explanations of hundreds of medical conditions</div>
+            <span class="info-icon">📜</span>
+            <div class="info-title">Visas & Rules</div>
+            <div class="info-desc">Subclass 500, 485, work hour limits, and visa requirements</div>
         </div>
         <div class="info-card">
-            <span class="info-icon">💊</span>
-            <div class="info-title">Treatments</div>
-            <div class="info-desc">Evidence-based treatment options and therapy approaches</div>
+            <span class="info-icon">🏫</span>
+            <div class="info-title">Uni Selection</div>
+            <div class="info-desc">Group of Eight, technological networks, intakes, and requirements</div>
         </div>
         <div class="info-card">
-            <span class="info-icon">🔬</span>
-            <div class="info-title">Symptoms</div>
-            <div class="info-desc">Symptom recognition and differential guidance</div>
+            <span class="info-icon">📝</span>
+            <div class="info-title">Academia</div>
+            <div class="info-desc">80% attendance policy, plagiarism rules, and extensions</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -578,7 +574,7 @@ for message in st.session_state.messages:
                 st.markdown(full)
 
 # Input
-if user_prompt := st.chat_input("Ask a health question… e.g. 'What are the symptoms of flu?'"):
+if user_prompt := st.chat_input("Ask a visa or university question… e.g. 'What is the attendance rule?'"):
     process_message(user_prompt)
     st.rerun()
 
@@ -587,10 +583,9 @@ st.markdown("""
 <div class="disclaimer">
     <span class="disclaimer-icon">⚠️</span>
     <span>
-        <strong style="color:#a8996b;">Medical Disclaimer:</strong>
-        Medibot is an educational project trained on the public MedQuAD dataset.
-        It is <em>not</em> a substitute for professional medical advice, diagnosis, or treatment.
-        Always consult a qualified healthcare professional for personal health concerns.
+        <strong style="color:#a8996b;">Education & Visa Disclaimer:</strong>
+        StudyAus AI is an educational assistant providing general guide details compiled from public immigration and university policy documents. 
+        It is <em>not</em> legal immigration advice or official university advice. Always check official sources like homeaffairs.gov.au or your university's handbook.
     </span>
 </div>
 """, unsafe_allow_html=True)

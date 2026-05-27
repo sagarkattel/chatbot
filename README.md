@@ -1,6 +1,6 @@
-# Medibot AI 🩺
+# StudyAus AI 🎓
 
-Medibot AI is a premium, modern, and clinically accurate conversational agent. It uses a **TF-IDF Hybrid Semantic Retrieval** system trained on the medical Q&A **MedQuAD** dataset. The application provides instant answers to user queries, returning concise summaries first with the option to expand and view the complete detail.
+StudyAus AI is a premium, modern, and highly helpful conversational guide designed for international students planning to study or currently studying in Australia. It uses a **TF-IDF Hybrid Semantic Retrieval** engine to provide instant, accurate answers about Australian visas, university selection, academic policies, assignments, attendance rules, and cultural integration.
 
 ---
 
@@ -8,8 +8,8 @@ Medibot AI is a premium, modern, and clinically accurate conversational agent. I
 
 - **💡 Expandable Answers:** Shows a clean, 2-sentence summary first, keeping the conversation brief and readable. Users can click **📖 Expand for full answer** to see the complete detailed explanation.
 - **🎨 Premium UI Design:** A beautiful dark-themed interface built using Streamlit, featuring glowing glassmorphism containers, radial background auras, and clean typography.
-- **🧠 Query Normalization:** Normalizes user queries using custom mapping (e.g., synonyms like *hypertension* $\rightarrow$ *high blood pressure*, lemmatizations like *symptom* $\rightarrow$ *symptoms*) to guarantee high semantic similarity matching.
-- **⚙️ Optimized Engine:** Runs on a fast vector similarity matching engine that matches user intent directly with the clinical dataset.
+- **🧠 Query Normalization:** Normalizes student and visa terminology (e.g. *uni* $\rightarrow$ *university*, *subclass 500* $\rightarrow$ *student visa*) to guarantee high semantic similarity matching.
+- **🦘 Curated Knowledge Base:** Pre-loaded with answers covering crucial visa regulations (Subclass 500, 485), university intakes, grading systems, 80% attendance policies, academic integrity/plagiarism, cost of living, transport concessions, and cultural adjustment tips.
 
 ---
 
@@ -17,12 +17,13 @@ Medibot AI is a premium, modern, and clinically accurate conversational agent. I
 
 ```
 ├── data/
-│   └── medDataset_processed.csv   # Dataset (auto-downloaded on first run)
+│   └── aus_student_dataset.csv    # Curated Q&A dataset
 ├── src/
 │   ├── app.py                     # Streamlit frontend application & UI
-│   └── chatbot.py                 # Hybrid Retrieval chatbot logic
+│   └── chatbot.py                 # TF-IDF Retrieval chatbot engine
 ├── run.py                         # Environment-aware launcher script
 ├── requirements.txt               # Main dependencies
+├── README.md                      # Project documentation
 └── .gitignore                     # Git exclusion rules
 ```
 
@@ -61,13 +62,12 @@ Once started, open your browser and navigate to:
 
 ## 🛠️ Built With
 
-- **[Streamlit](https://streamlit.io/)** - Modern frontend web framework for data apps.
+- **[Streamlit](https://streamlit.io/)** - Modern frontend web framework.
 - **[Scikit-learn](https://scikit-learn.org/)** - TF-IDF Vectorization & Cosine Similarity.
-- **[Pandas](https://pandas.pydata.org/)** - High-performance dataset parsing.
-- **[MedQuAD Dataset](https://huggingface.co/datasets/keivalya/MedQuad-MedicalQnADataset)** - Medical Q&A dataset containing hundreds of verified disease and treatment definitions.
+- **[Pandas](https://pandas.pydata.org/)** - Dataset parsing.
 
 ---
 
-## ⚠️ Medical Disclaimer
+## ⚠️ Education & Visa Disclaimer
 
-Medibot is an educational project powered by a hybrid retrieval model trained on public medical QA pairs. It does not provide professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for personal health concerns.
+StudyAus AI is an educational assistant providing general guide details compiled from public immigration and university policy documents. It is **not** legal immigration advice or official university advice. Always check official sources like [homeaffairs.gov.au](https://www.homeaffairs.gov.au/) or your university's official handbook.

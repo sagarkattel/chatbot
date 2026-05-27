@@ -10,10 +10,10 @@ ENV/
 *.py[cod]
 *$py.class
 
-# Local datasets (auto-downloaded by the chatbot)
-data/*.csv
+# Local datasets
+data/medDataset_processed.csv
 data/*.xlsx
-data/*.json
+
 
 # User-specific & IDE configs
 .vscode/
