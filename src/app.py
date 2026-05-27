@@ -3,11 +3,11 @@ import streamlit as st
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
-from chatbot import StudyAusChatbot
+from chatbot import EduGuideAIChatbot
 
 # ─── Page Config ─────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="StudyAus AI · Australian Student Guide",
+    page_title="EduGuideAI · Academic, Immigration & Student Support",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -431,15 +431,15 @@ div[data-testid="stExpander"] > div > div {
 
 # ─── Load Resources ────────────────────────────────────────────────────────────
 @st.cache_resource
-def load_studyaus_chatbot():
-    bot = StudyAusChatbot()
+def load_eduguide_chatbot():
+    bot = EduGuideAIChatbot()
     bot.load_model()
     return bot
 
 
 # ─── Load Bot ─────────────────────────────────────────────────────────────────
 try:
-    chatbot = load_studyaus_chatbot()
+    chatbot = load_eduguide_chatbot()
     model_loaded = True
 except Exception as e:
     model_loaded = False
@@ -452,8 +452,8 @@ with st.sidebar:
     <div class="sidebar-logo">
         <div class="sidebar-logo-icon">🎓</div>
         <div class="sidebar-logo-text">
-            <h2>StudyAus AI</h2>
-            <p>AUSTRALIAN STUDENT GUIDE</p>
+            <h2>EduGuideAI</h2>
+            <p>STUDENT & VISA ASSISTANT</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -462,13 +462,13 @@ with st.sidebar:
     if model_loaded:
         st.markdown("""
         <div class="status-badge status-online">
-            <div class="pulse-dot"></div> Guide Online
+            <div class="pulse-dot"></div> Assistant Online
         </div>
         """, unsafe_allow_html=True)
     else:
         st.markdown("""
         <div class="status-badge status-offline">
-            <div class="pulse-dot-off"></div> Guide Offline
+            <div class="pulse-dot-off"></div> Assistant Offline
         </div>
         """, unsafe_allow_html=True)
         st.error("Model failed to load.")
@@ -492,7 +492,7 @@ with st.sidebar:
     # ── Chat History ─────────────────────────────────────────────────────────
     if "messages" not in st.session_state:
         welcome = (
-            "👋 G'day! I am **StudyAus AI**, your guide to living and studying in Australia.\n\n"
+            "👋 G'day! I am **EduGuideAI**, your retrieval-augmented conversational assistant for academic, immigration, and student support.\n\n"
             "Ask me anything about **visas**, **university selection**, **academic rules**, **assignments**, "
             "**attendance requirements**, or **cultural integration**!"
         )
@@ -506,7 +506,7 @@ with st.sidebar:
             with st.spinner("Retrieving guide details…"):
                 short, full = chatbot.get_response(prompt)
         else:
-            short = full = "⚠️ StudyAus AI is currently offline. Please check that the dataset exists."
+            short = full = "⚠️ EduGuideAI is currently offline. Please check that the dataset exists."
         st.session_state.messages.append({"role": "assistant", "short": short, "full": full})
 
     for sq in sample_questions:
@@ -518,8 +518,8 @@ with st.sidebar:
     st.markdown('<div class="section-label" style="margin-top:1rem;">ℹ️ About</div>', unsafe_allow_html=True)
     st.markdown("""
     <p style="font-size:0.76rem; color:#2d4a65; line-height:1.55;">
-        StudyAus AI uses a <strong style="color:#3a5c80;">TF-IDF Hybrid Retrieval</strong> engine
-        trained on a curated Australian university regulations, visa rules, and cultural integration dataset.
+        EduGuideAI uses a <strong style="color:#3a5c80;">TF-IDF Hybrid Retrieval</strong> engine
+        trained on a curated academic regulations, visa rules, and student support dataset.
     </p>
     """, unsafe_allow_html=True)
 
@@ -530,11 +530,11 @@ with st.sidebar:
 st.markdown("""
 <div class="main-header">
     <div>
-        <h1 class="main-title">StudyAus AI 🎓</h1>
+        <h1 class="main-title">EduGuideAI 🎓</h1>
         <div class="main-subtitle">
-            Australian Visa & University Life Assistant &nbsp;
+            A Retrieval-Augmented Conversational Assistant for Academic, Immigration, and Student Support &nbsp;
             <span class="tag tag-teal">TF-IDF Retrieval</span>&nbsp;
-            <span class="tag">Student Guide</span>
+            <span class="tag">Student Support</span>
         </div>
     </div>
 </div>
@@ -584,7 +584,7 @@ st.markdown("""
     <span class="disclaimer-icon">⚠️</span>
     <span>
         <strong style="color:#a8996b;">Education & Visa Disclaimer:</strong>
-        StudyAus AI is an educational assistant providing general guide details compiled from public immigration and university policy documents. 
+        EduGuideAI is an educational assistant providing general guide details compiled from public immigration and university policy documents. 
         It is <em>not</em> legal immigration advice or official university advice. Always check official sources like homeaffairs.gov.au or your university's handbook.
     </span>
 </div>

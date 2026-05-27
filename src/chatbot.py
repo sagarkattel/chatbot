@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 MODEL_DIR = "models"
 
-class StudyAusChatbot:
+class EduGuideAIChatbot:
     def __init__(self, model_dir=MODEL_DIR):
         self.model_dir = model_dir
         self.is_loaded = False
@@ -20,23 +20,23 @@ class StudyAusChatbot:
         self.conversational_responses = {
             "greetings": [
                 r"\b(hi|hello|hey|g'day|hola|greetings)\b",
-                "G'day! I am your StudyAus AI assistant. How can I help you with your Australian visa or university queries today?"
+                "G'day! I am EduGuideAI, your assistant for academic, immigration, and student support. How can I help you today?"
             ],
             "farewells": [
                 r"\b(bye|goodbye|see you|farewell|quit|exit)\b",
-                "Goodbye! All the best with your studies and journey in Australia. Stay safe!"
+                "Goodbye! All the best with your academic and immigration journey. Stay safe!"
             ],
             "gratitude": [
                 r"\b(thanks|thank you|appreciate it|helpful)\b",
-                "No worries! Happy to help. Let me know if you have any other questions."
+                "No worries! Glad I could help. Let me know if you need anything else."
             ],
             "identity": [
                 r"\b(who are you|your name|what are you|what is your name)\b",
-                "I am StudyAus AI, an expert conversational assistant designed to help you navigate Australian student visas, university selection, academic rules, and student life."
+                "I am EduGuideAI, a Retrieval-Augmented Conversational Assistant for Academic, Immigration, and Student Support."
             ],
             "capabilities": [
                 r"\b(what can you do|help|capabilities|how to use|features)\b",
-                "I can answer questions about Australian Student Visas (Subclass 500), Graduate Visas (Subclass 485), Group of Eight universities, grading scales, attendance rules, plagiarism policies, and living in Australia."
+                "I can answer questions about academic requirements, attendance policies, assignment extensions, plagiarism rules, student visas (Subclass 500), graduate visas (Subclass 485), and cultural integration support."
             ]
         }
 
@@ -147,7 +147,7 @@ class StudyAusChatbot:
 
 if __name__ == "__main__":
     # Quick CLI test
-    chatbot = StudyAusChatbot()
+    chatbot = EduGuideAIChatbot()
     print("Initializing CLI Test Mode. Loading dataset...")
     try:
         chatbot.load_model()
