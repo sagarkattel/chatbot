@@ -110,7 +110,7 @@ class StudyAusChatbot:
 
         # Low similarity fallback
         if best_score < 0.15:
-            msg = "I am sorry, but I do not have information on that specific medical query. Please consult a healthcare professional."
+            msg = "I am sorry, but I do not have information on that specific study or visa query. Please consult an official student advisor or check the official government/university handbook."
             return msg, msg
 
         raw_answer = self.answers[best_match_idx]
